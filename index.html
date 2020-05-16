@@ -38,7 +38,8 @@
                             <div class="col">
                                 <div class="input-group mb-2">
                                     <currency-label v-bind:seller-crypto="sellerCrypto"></currency-label>
-                                    <input type="text" class="form-control" id="sellerCheckoutTotal"
+                                    <input type="number" class="form-control" id="sellerCheckoutTotal"
+                                        v-bind:step="getCryptoStep" v-bind:pattern="getCryptoRegexPattern"
                                         v-model.number="sellerCheckoutTotal">
                                 </div>
                             </div>
@@ -50,7 +51,8 @@
                             <div class="col">
                                 <div class="input-group mb-2">
                                     <currency-label v-bind:seller-crypto="sellerCrypto"></currency-label>
-                                    <input type="text" class="form-control" id="walletToSellerFee"
+                                    <input type="number" class="form-control" id="walletToSellerFee"
+                                        v-bind:step="getCryptoStep" v-bind:pattern="getCryptoRegexPattern"
                                         v-model.number="walletToSellerFee">
                                 </div>
                             </div>
@@ -75,7 +77,8 @@
                             <div class="col">
                                 <div class="input-group mb-2">
                                     <currency-label v-bind:seller-crypto="sellerCrypto"></currency-label>
-                                    <input type="text" class="form-control" id="exchangeWithdrawalFee"
+                                    <input type="number" class="form-control" id="exchangeWithdrawalFee"
+                                        v-bind:step="getCryptoStep" v-bind:pattern="getCryptoRegexPattern"
                                         v-model.number="exchangeWithdrawalFee">
                                 </div>
                             </div>
@@ -87,7 +90,8 @@
                             <div class="col">
                                 <div class="input-group mb-2">
                                     <currency-label v-bind:seller-crypto="sellerCrypto"></currency-label>
-                                    <input type="text" class="form-control" id="exchangeToWalletIncomingFee"
+                                    <input type="number" class="form-control" id="exchangeToWalletIncomingFee"
+                                        v-bind:step="getCryptoStep" v-bind:pattern="getCryptoRegexPattern"
                                         v-model.number="exchangeToWalletIncomingFee">
                                 </div>
                             </div>
@@ -119,8 +123,8 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">{{ exchangeFiat }}</div>
                                     </div>
-                                    <input type="text" class="form-control" id="exchangeFiatPrice"
-                                        v-model.number="exchangeFiatPrice">
+                                    <input type="number" class="form-control" id="exchangeFiatPrice" step="0.01"
+                                        pattern="^\d+(?:\.\d{1,2})?$" v-model.number="exchangeFiatPrice">
                                 </div>
                             </div>
                         </div>

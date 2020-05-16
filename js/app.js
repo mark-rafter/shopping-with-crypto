@@ -28,6 +28,14 @@ const app = new Vue({
         }
     },
     computed: {
+        getCryptoStep: function () {
+            const currency = this.currencyList.find(c => c.symbol === this.sellerCrypto);
+            return `0.${'0'.repeat(currency.precision - 1)}1`;
+        },
+        getCryptoRegexPattern: function () {
+            const currency = this.currencyList.find(c => c.symbol === this.sellerCrypto);
+            return `^\d+(?:\.\d{1,${currency.precision}})?$`;
+        },
         getFinalTransactionAmount: function () {
             return this.toPrice(this.walletToSellerFee)
                 .add(this.toPrice(this.sellerCheckoutTotal));
