@@ -4,7 +4,7 @@ Vue.component('currency-label', {
     },
     computed: {
         getSellerCryptoImg: function () {
-            return `img/${this.sellerCrypto}.svg`;
+            return `img/${this.sellerCrypto.toLowerCase()}.svg`;
         }
     },
     template: `
