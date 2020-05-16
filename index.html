@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <title>Shopping With Crypto - Price Calculator</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container-sm mt-3">
+            <noscript>
+                <div class="alert alert-danger" role="alert">
+                    In order to do price calculations, this page requires JavaScript to be enabled in your browser.
+                </div>
+            </noscript>
+            <h2 class="mb-3">Shopping With Crypto</h2>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <img width="28px" src="img/wallet.svg" /> Wallet
+                    &rarr;
+                    <img width="28px" src="img/seller.svg" /> Seller (
+                    <select id="sellerCryptoSelect" class="custom-select w-auto" v-model="sellerCrypto">
+                        <option v-for="c in cryptoList" v-bind:value="c.symbol">
+                            {{ c.text }}
+                        </option>
+                    </select>
+                    : <strong>{{ getFinalTransactionAmount.toUnit() }}</strong>)
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="sellerCheckoutTotal" class="col-sm-5 col-md-4 col-lg-3 col-form-label">
+                                Seller Checkout Total
+                            </label>
+                            <div class="col">
+                                <div class="input-group mb-2">
+                                    <currency-label v-bind:seller-crypto="sellerCrypto"></currency-label>
+                                    <input type="text" class="form-control" id="sellerCheckoutTotal"
+                                        v-model.number="sellerCheckoutTotal">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="walletToSellerFee" class="col-sm-5 col-md-4 col-lg-3 col-form-label">
+                                Transfer Fee
+                            </label>
+                            <div class="col">
+                                <div class="input-group mb-2">
+                                    <currency-label v-bind:seller-crypto="sellerCrypto"></currency-label>
+                                    <input type="text" class="form-control" id="walletToSellerFee"
+                                        v-model.number="walletToSellerFee">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <img width="28px" src="img/exchange.svg" /> Exchange
+                    &rarr;
+                    <img width="28px" src="img/wallet.svg" /> Wallet ({{ sellerCrypto }}:
+                    <strong>{{ getExchangeToWalletAmount.toUnit() }}</strong>)
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="exchangeWithdrawalFee" class="col-sm-5 col-md-4 col-lg-3 col-form-label">
+                                Exchange Withdrawal Fee
+                            </label>
+                            <div class="col">
+                                <div class="input-group mb-2">
+                                    <currency-label v-bind:seller-crypto="sellerCrypto"></currency-label>
+                                    <input type="text" class="form-control" id="exchangeWithdrawalFee"
+                                        v-model.number="exchangeWithdrawalFee">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exchangeToWalletIncomingFee" class="col-sm-5 col-md-4 col-lg-3 col-form-label">
+                                Transfer Fee
+                            </label>
+                            <div class="col">
+                                <div class="input-group mb-2">
+                                    <currency-label v-bind:seller-crypto="sellerCrypto"></currency-label>
+                                    <input type="text" class="form-control" id="exchangeToWalletIncomingFee"
+                                        v-model.number="exchangeToWalletIncomingFee">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <img width="28px" src="img/cc.svg" /> Card/Bank
+                    &rarr;
+                    <img width="28px" src="img/exchange.svg" /> Exchange (
+                    <select id="exchangeFiatSelect" class="custom-select w-auto" v-model="exchangeFiat">
+                        <option v-for="f in fiatList" v-bind:value="f.symbol">
+                            {{ f.text }}
+                        </option>
+                    </select>
+                    : <strong>{{ getExchangeIncomingFiatAmount.toFormat() }}</strong>)
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group row">
+                            <label for="exchangeFiatPrice" class="col-sm-5 col-md-4 col-lg-3 col-form-label">
+                                1 {{ sellerCrypto }} =
+                            </label>
+                            <div class="col">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">{{ exchangeFiat }}</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="exchangeFiatPrice"
+                                        v-model.number="exchangeFiatPrice">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/vue.min.js"></script>
+    <script src="js/dinero.min.js"></script>
+    <script src="js/currency-label.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
